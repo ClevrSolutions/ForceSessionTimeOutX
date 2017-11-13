@@ -1,6 +1,11 @@
-dojo.provide("ForceSessionTimeOutX.widget.FST");
+define([
+	"dojo/_base/lang",
+	"dojo/on"
+
+], function (lang, on) {
+	
 if(!window.msAppWideWidgets){
-	window.msAppWideWidgets = [];
+window.msAppWideWidgets = [];
 }
 if(!window.msAppWideWidgets.ForceSessionTimeOutX){
 	window.msAppWideWidgets.ForceSessionTimeOutX = new function(){
@@ -37,9 +42,9 @@ if(!window.msAppWideWidgets.ForceSessionTimeOutX){
 		this.setEvents = function(param){			
 			if(console && debug === true) console.log('ForceSessionTimeOutX.widget: Set Events');
 			if(eventsAreSet === false && timeOutOn > 0){
-				handler.c = dojo.connect(document, 'click', dojo.hitch(this, this.updateLastUserAction));
-				handler.ku = dojo.connect(document, 'onkeyup', dojo.hitch(this, this.updateLastUserAction));
-				handler.mu = dojo.connect(document, 'mouseup', dojo.hitch(this, this.updateLastUserAction));
+				handler.c = on(document, 'click', lang.hitch(this, this.updateLastUserAction));
+				handler.ku = on(document, 'keyup', lang.hitch(this, this.updateLastUserAction));
+				handler.mu = on(document, 'mouseup', lang.hitch(this, this.updateLastUserAction));
 				
 				eventsAreSet = true;
 				this.checkTimeOut();
@@ -54,14 +59,14 @@ if(!window.msAppWideWidgets.ForceSessionTimeOutX){
 			}
 			var guest = mx.session.isGuest();
 			if(mx.session == null || guest == null || guest){
-				setTimeout(dojo.hitch(this, this.fetchTimeOutOn), 5000);
+				setTimeout(lang.hitch(this, this.fetchTimeOutOn), 5000);
 			}else{
 				mx.data.action({
 					params       : {
 						actionname : microFlow.timeOut
 					},
-		    	callback     : dojo.hitch(this, this.setTimeOutValue),
-			  	error        : dojo.hitch(this, this.setEvents)
+		    	callback     : lang.hitch(this, this.setTimeOutValue),
+			  	error        : lang.hitch(this, this.setEvents)
 				});
 			}
 		}
@@ -82,14 +87,14 @@ if(!window.msAppWideWidgets.ForceSessionTimeOutX){
 									actionname : microFlow.logOut
 								},
 					    	callback     : function() {},
-				    		error        : dojo.hitch(this, this.errorOnLogoutMf)
+				    		error        : lang.hitch(this, this.errorOnLogoutMf)
 							});
 						}else{
 							this.errorOnLogoutMf();
 						}
 					}
 				}
-				this.toFunction = setTimeout(dojo.hitch(this, this.checkTimeOut), 5000);
+				this.toFunction = setTimeout(lang.hitch(this, this.checkTimeOut), 5000);
 			}
 		}
 		this,erroronLogoutMf = function(e){
@@ -101,5 +106,6 @@ if(!window.msAppWideWidgets.ForceSessionTimeOutX){
 				try{mx.logout();}catch(e){};
 			}
 		}
-	};
-}
+			};
+		}
+	});
