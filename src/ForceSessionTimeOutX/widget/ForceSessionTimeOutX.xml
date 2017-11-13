@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<widget id="ForceSessionTimeOutX.widget.ForceSessionTimeOutX" needsEntityContext="false" xmlns="http://www.mendix.com/widget/1.0/">
+  <name>ForceSessionTimeOutX</name>
+  <description>ForceSessionTimeOutX</description>
+  <icon>/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLBRYFDQwFDRsUFRAKIB0iIiAREx8kKDQsJCYxJx8fLTEtMTU3Ojo6Iys/RD84QzQ5OjcBCgoKBQUFDgUFDisZExkrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrK//AABEIABIAEgMBIgACEQEDEQH/xAAZAAEAAgMAAAAAAAAAAAAAAAAABgcDBAX/xAAlEAABBAIBAwQDAAAAAAAAAAABAAMEBQIRIQYSMRNBYXEVIjL/xAAUAQEAAAAAAAAAAAAAAAAAAAAA/8QAFBEBAAAAAAAAAAAAAAAAAAAAAP/aAAwDAQACEQMRAD8Ate6tpTE6PV1Edt+wfjmcTOyOLbMYHXqua5PPAA8rQreoLFt6ELluG5EnSjXsTKLvxxxlc6bcxy2RvRAIPn7Wa6amV18zeQ4jk1k1H4KUxB16mLQy7sXWwf60SQR8rmRIzlo9ChV9dPhVUbqIdTuOdR4FshzE9wYYxP7a7uST45A9ggmyIiAiIgIiIP/Z</icon>
+		<properties>
+			<property key="timeoutOn" type="integer" defaultValue="0">
+				<caption>Session timeout</caption>
+				<category>Behavior</category>
+				<description>
+					Timeout in seconds after which the client is forced to log out if no user action has been logged by the client (key up/left mouse click) 
+					It is overwritten in case a microflow is set to retrieve a timeout value
+				</description>
+			</property>	
+      <property key="getTimeoutMF" type="microflow" required="false">
+  	   	<caption>Get Timeout microflow</caption>
+      	<category>Behavior</category>
+      	<description>This microflow should return an integer/long value, which will be used as Timeout session. It is called if a non-guest user has logged in</description>
+				<returnType type="Void"/>
+    	</property>	
+      <property key="logOutMF" type="microflow" required="true">
+  	   	<caption>Log out microflow</caption>
+      	<category>Behavior</category>
+      	<description>This microflow is used to log out the user.</description>
+				<returnType type="Void"/>
+    	</property>	
+  </properties>
+</widget>
+
