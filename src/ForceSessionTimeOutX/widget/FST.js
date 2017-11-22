@@ -82,10 +82,7 @@ if(!window.msAppWideWidgets.ForceSessionTimeOutX){
 					var timeDiff = timeNow.getTime() - window.localStorage.getItem('CUS-FST-lastAction');
 					if(timeDiff/1000 > timeOutOn){
 						if(microFlow.logOut){
-							mx.data.action({
-								params       : {
-									actionname : microFlow.logOut
-								},
+							mx.ui.action(microFlow.logOut, {
 					    	callback     : function() {},
 				    		error        : lang.hitch(this, this.errorOnLogoutMf)
 							});
