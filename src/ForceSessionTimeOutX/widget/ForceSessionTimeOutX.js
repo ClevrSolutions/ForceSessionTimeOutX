@@ -1,25 +1,28 @@
-dojo.provide("ForceSessionTimeOutX.widget.ForceSessionTimeOutX");
-mendix.widget.declare('ForceSessionTimeOutX.widget.ForceSessionTimeOutX', {
-	addons       : [],
-	inputargs: {
+define([
+	"dojo/_base/declare",
+	"mxui/widget/_WidgetBase",
+	"dojo/_base/lang",
+	"dojo/on"
+
+], function (declare, _WidgetBase, lang, on) {
+	"use strict";
+
+	return declare("ForceSessionTimeOutX.widget.ForceSessionTimeOutX", [ _WidgetBase ], {
 		timeoutOn: '',
 		logOutMF: '',
-		getTimeoutMF: ''
-	},
+		getTimeoutMF: '',
 	
 	postCreate: function(){
 		if(this.timeoutOn == null || this.timeoutOn == undefined || this.timeoutOn == ''){
 			this.timeoutOn = 0;
 		}
 		if(typeof(Storage) !== "undefined"){
-			dojo.require("ForceSessionTimeOutX.widget.FST");
 			this.externalIsLoaded();
 		}
-		this.actRendered();
 	},
 	externalIsLoaded: function(e){
 		if (typeof window.msAppWideWidgets === "undefined" || typeof window.msAppWideWidgets.ForceSessionTimeOutX === "undefined"){
-			setTimeout(dojo.hitch(this, this.externalIsLoaded()),500);
+			setTimeout(lang.hitch(this, this.externalIsLoaded()),500);
 		}else{
 			var inputObj = {timeOutOn: this.timeoutOn};
 			if(this.getTimeoutMF != '')	inputObj.timeOutMF = this.getTimeoutMF;
@@ -30,4 +33,7 @@ mendix.widget.declare('ForceSessionTimeOutX.widget.ForceSessionTimeOutX', {
 	uninitialize : function(){
 		logger.debug(this.id + ".uninitialize");
 	}
-});
+		});
+	});
+
+require([ "ForceSessionTimeOutX/widget/FST", "ForceSessionTimeOutX/widget/ForceSessionTimeOutX" ]);
